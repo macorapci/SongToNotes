@@ -1,5 +1,7 @@
 package macorapci.file;
 
+import macorapci.notes.PianoNotes;
+
 import java.io.File;
 import java.io.SequenceInputStream;
 import javax.sound.sampled.AudioFileFormat;
@@ -9,9 +11,8 @@ import javax.sound.sampled.AudioSystem;
 import static macorapci.notes.PianoNotes.int2Note;
 
 public class PrintNewWavFile {
-    public static void combineWav(int[] keys) {
-        String path="src/macorapci/products/macorapci";
-        String wavFileProduct = path;
+    public static void combineWav(int[] keys,String path,String file) {
+        String wavFileProduct = file;
 
         for(int k=0;k<keys.length;k++){
             if(k==0){
@@ -35,7 +36,7 @@ public class PrintNewWavFile {
                 try {
                     File old_file=new File(wavFileProduct+(k-1)+".wav");
                     AudioInputStream clip1 = AudioSystem.getAudioInputStream(old_file);
-                    AudioInputStream clip2 = AudioSystem.getAudioInputStream(new File(int2Note(keys[k])));
+                    AudioInputStream clip2 = AudioSystem.getAudioInputStream(new File(PianoNotes.int2Note(keys[k])));
 
                     AudioInputStream appendedFiles =
                             new AudioInputStream(
@@ -45,7 +46,7 @@ public class PrintNewWavFile {
 
                     String finalFile;
                     if(keys.length-1==k){
-                        finalFile=wavFileProduct+"Prodoct"+".wav";
+                        finalFile=wavFileProduct+"(SongToNotes)"+".wav";
                     }else{
                         finalFile=wavFileProduct+k+".wav";
                     }

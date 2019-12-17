@@ -4,15 +4,15 @@ import macorapci.file.SourceTransaction;
 
 public class PianoNotes {
     public static int dataSize;
-    public static int bitPerSample;
-    public static int byteSizeOfOneSec;
+    public static int sampleSizeInBits;
+    public static long frameSize;
 
     public static byte [] notes_piano(int j){
         SourceTransaction sourceTransaction=new SourceTransaction();
         sourceTransaction.readWavFile(int2Note(j));
-        dataSize=sourceTransaction.dataSize;
-        bitPerSample=sourceTransaction.bitPerSample;
-        byteSizeOfOneSec=sourceTransaction.byteSizeOfOneSec;
+        dataSize=sourceTransaction.wavFile.length;
+        sampleSizeInBits=sourceTransaction.sampleSizeInBits;
+        frameSize=sourceTransaction.frameSize;
         return sourceTransaction.wavFile;
     }
 
